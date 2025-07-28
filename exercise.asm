@@ -35,18 +35,29 @@ section .text
 encrypt:
     ; Arguments are passed through rdi (string) and rsi (key)
 
-    ; Load the string and key into registers
-    mov eax, dword [rdi]
-    mov ebx, dword [rsi]
+    ; What is stored in eax after the next instruction?
+    mov eax, dword [rdi] ; *(char*)$rdi@4
 
-    ; XOR and rotate left to get ciphertext
-    xor eax, ebx
+    ; What is now stored in al?
+    ; (char)$al
+
+    ; What is stored in ebx after the next instruction?
+    mov ebx, dword [rsi] ; *(char*)$rsi@4
+
+    ; What is now stored in bh
+    ; (char)$bh
+
+    ; xor eax, ebx
+    ; What happens if we xor eax with ebx again?
+    ; $eax^$ebx,h
+
+    ; What does this instruction do?
     rol eax, 8
 
     ; Negate the bits
     not eax
 
-    ; Store the ciphertext back into the string
+    ; What does this instruction do?
     mov dword [rdi], eax
 
     ret
@@ -54,20 +65,15 @@ encrypt:
 decrypt:
     ; Arguments are passed through rdi (string) and rsi (key)
 
-    ; Load the ciphertext and key into registers
     mov eax, dword [rdi]
     mov ebx, dword [rsi]
 
-    ; Negate the bits
     not eax
 
-    ; Rotate right
     ror eax, 1
 
-    ; XOR with the key to get plaintext
     xor eax, ebx
 
-    ; Store the decrypted text back into the string
     mov dword [rdi], eax
 
     ret

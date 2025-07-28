@@ -5,7 +5,7 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${fileDirname}/bin/func",
+            "program": "${fileDirname}/bin/test",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
